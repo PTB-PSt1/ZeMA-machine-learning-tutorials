@@ -4,6 +4,7 @@ import tempfile
 
 import nbformat
 
+
 def test_tutorial_1():
 
     def _notebook_run(path):
@@ -11,7 +12,8 @@ def test_tutorial_1():
            :returns (parsed nb object, execution errors)
         """
         dirname, __ = os.path.split(path)
-        os.chdir(dirname)
+        if dirname:
+            os.chdir(dirname)
         with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
             args = ["nbconvert", "--to", "notebook", "--execute",
                     "--ExecutePreprocessor.timeout=60",
